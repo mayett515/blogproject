@@ -17,6 +17,18 @@ def load_blog_posts():
         return []
 
 
+def fetch_post_by_id(post_id):
+    try:
+        with open(os.path.join('data', 'blog_post.json'), 'r') as f:
+            data = json.load(f)
+            for post in data['posts']:
+                if post['id'] == post_id:
+                    return post
+    except FileNotFoundError:
+        return None
+    return None
+
+
 @app.route('/')
 def index():
     """Display all blog posts on the home page."""
@@ -74,6 +86,34 @@ def delete(post_id):
     # Redirect back to the home page
     return redirect(url_for('index'))
 
+
+@app.route('/update/<int:post_id>', methods=['GET', 'POST'])
+def update(post_id):
+    if request.method == 'POST':
+        # Load existing posts
+        with open(os.path.join('data', 'blog_post.json'), 'r') as f:
+            data = json.load(f)
+
+        # Update the post
+        for post in data['posts']:
+            if post['id'] == post_id:
+                post['author'] = request.form['author']
+                post['title'] = request.form['title']
+                post['content'] = request.form['content']
+                break
+
+        # Save back to file
+        with open(os.path.join('data', 'blog_post.json'), 'w') as f:
+            json.dump(data, f, indent=4)
+
+        return redirect(url_for('index'))
+
+    # GET request - show the update form
+    post = fetch_post_by_id(post_id)
+    if post is None:
+        return "Post not found", 404
+
+    return render_template('update.html', post=post)
 
 if __name__ == '__main__':
     app.run(debug=True)

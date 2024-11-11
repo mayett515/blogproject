@@ -51,7 +51,7 @@ h1 {
     margin-bottom: 15px;
 }
 
-.delete-button {
+.delete-button, .update-button {
     display: inline-block;
     padding: 8px 16px;
     background-color: #dc3545;
@@ -61,7 +61,7 @@ h1 {
     font-size: 14px;
 }
 
-.delete-button:hover {
+.delete-button:hover, .update-button:hover {
     background-color: #c82333;
 }
 
@@ -83,7 +83,11 @@ h1 {
     margin: 0;
 }
 
-.delete-button {
+.delete-button, .update-button {
     /* ... existing styles ... */
     font-size: 12px; /* Reduced font size slightly */
 }
+
+.update-button {
+            background-color: #007bff;
+        }
