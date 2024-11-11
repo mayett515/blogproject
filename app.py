@@ -5,6 +5,7 @@ import os
 
 app = Flask(__name__)
 
+
 def load_blog_posts():
     """Load blog posts from JSON file."""
     json_path = os.path.join('data', 'blog_post.json')
@@ -14,6 +15,7 @@ def load_blog_posts():
     except FileNotFoundError:
         # Return empty list if file doesn't exist yet
         return []
+
 
 @app.route('/')
 def index():
@@ -49,6 +51,28 @@ def add():
             json.dump({'posts': blog_posts}, f, indent=4)
 
         return redirect(url_for('index'))
+
+
+@app.route('/delete/<int:post_id>')
+def delete(post_id):
+    try:
+        # Load existing posts
+        with open(os.path.join('data', 'blog_post.json'), 'r') as f:
+            data = json.load(f)
+
+        # Filter out the post with the given id
+        data['posts'] = [post for post in data['posts'] if post['id'] != post_id]
+
+        # Save the updated posts back to the file
+        with open(os.path.join('data', 'blog_post.json'), 'w') as f:
+            json.dump(data, f, indent=4)
+
+    except FileNotFoundError:
+        # Handle case where file doesn't exist
+        pass
+
+    # Redirect back to the home page
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':

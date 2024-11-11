@@ -25,3 +25,65 @@ h1 {
 .post p {
     margin: 10px 0;
 }
+
+.create-post-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.create-post-button:hover {
+    background-color: #45a049;
+}
+
+.button-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.post-actions {
+    text-align: right;
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.delete-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #dc3545;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.post {
+    position: relative;
+}
+
+/* Existing styles remain unchanged */
+
+.post {
+    /* ... existing styles ... */
+    position: relative; /* Added this line */
+}
+
+.post-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 0;
+}
+
+.delete-button {
+    /* ... existing styles ... */
+    font-size: 12px; /* Reduced font size slightly */
+}
