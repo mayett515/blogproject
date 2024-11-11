@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 def load_blog_posts():
     """Load blog posts from JSON file."""
-    json_path = os.path.join('data', 'blog_posts.json')
+    json_path = os.path.join('data', 'blog_post.json')
     try:
         with open(json_path, 'r') as f:
             return json.load(f)
@@ -18,7 +18,8 @@ def load_blog_posts():
 @app.route('/')
 def index():
     """Display all blog posts on the home page."""
-    blog_posts = load_blog_posts()
+    loaded_json_blog_posts = load_blog_posts()
+    blog_posts = loaded_json_blog_posts['posts']
     return render_template('index.html', posts=blog_posts)
 
 if __name__ == '__main__':
